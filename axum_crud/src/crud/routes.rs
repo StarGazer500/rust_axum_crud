@@ -1,13 +1,12 @@
 use axum::{
-    routing::{post},Router
+    routing::post,
+    Router
 };
+use crate::crud::handler::{save_credentials_handler,get_credentials_by_email_json_handler};
+use crate::grouped_routes::main_route::AppState;
 
-use crate::crud::handler::some_string_handler;
-
-
-pub fn crud_routes()->Router{
-    let crud_app = Router::new()
-    .route("/mirror_string", post(some_string_handler));
-return  crud_app;
-
+pub fn save_credential_crud_routes() -> Router<AppState> {
+    Router::new()
+      .route("/save_credentials", post(save_credentials_handler))
+      .route("/get_by_email", post(get_credentials_by_email_json_handler))
 }
